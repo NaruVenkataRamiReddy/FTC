@@ -1,0 +1,150 @@
+{% extends 'base.html' %} {% block content %}
+<script>
+	jQuery(function () {
+		jQuery("#user_dob").datepicker({
+			changeMonth: true,
+			changeYear: true,
+			yearRange: "0:+1",
+			dateFormat: 'd MM,yy'
+		});
+	});
+</script>
+<!--breadcrumbs start-->
+<div class="breadcrumbs">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4 col-sm-4">
+				<h1>{{heading}}</h1>
+			</div>
+		</div>
+	</div>
+</div>
+<!--breadcrumbs end-->
+
+<!--container start-->
+<div class="registration-bg">
+	<div class="row">
+		<form enctype="multipart/form-data" method="post" class="form-signin wow fadeInUp" action="" style="max-width:60%">
+			{% csrf_token %}
+			<h2 class="form-signin-heading">
+				{% if fn == "add" %}
+					Add {{sub_heading}}
+				{% elif fn == "update" %}
+					{{sub_heading}}
+				{% else %}
+					My Profile
+				{% endif %}
+			</h2>
+			{% if messages %}
+				<div class="alert alert-success fade in" style="margin:10px;">
+					{% for message in messages %}
+						<strong>{{ message }}</strong>
+					{% endfor %}
+				</div>
+			{% endif %}
+			<div class="login-wrap">
+				<div class="col-xs-6 form-group">
+					<label for="pwd">User Name</label>
+					<input type="text" class="form-control" placeholder="User Name" autofocus="" name="user_name" id="user_name" value="{{userdetails.user_name}}">
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Login ID</label>
+					<input type="text" class="form-control" placeholder="Username" autofocus="" name="user_username" id="user_username" value="{{userdetails.user_username}}">
+				</div>
+				<div class="col-xs-6 form-group update-user">
+					<label for="pwd">Password</label>
+					<input type="password" class="form-control" placeholder="Password" autofocus="" name="user_password" id="user_password" value="{{userdetails.user_password}}">
+				</div>
+				<div class="col-xs-6 form-group update-user">
+					<label for="pwd">Confirm Password</label>
+					<input type="password" class="form-control" placeholder="Confirm Password" autofocus="" name="user_confirm_password" id="user_confirm_password" value="{{userdetails.user_password}}">
+				</div>
+				<div class="col-xs-6 form-group">
+					<label>Gender {{userdetails.user_gender}}</label>
+					<span class="form-control">
+						<input type="radio" class="radio-inline" name="user_gender" value="Male" {% if userdetails.user_gender == 'Male' %} checked="checked"{% endif %} required> Male &nbsp&nbsp
+						<input type="radio" class="radio-inline" name="user_gender" value="Female" {% if userdetails.user_gender == 'Female' %} checked="checked"{% endif %} required> Female
+					</span>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">User Email</label>
+					<input type="text" class="form-control" placeholder="User Email" autofocus="" name="user_email" id="user_email" value="{{userdetails.user_email}}">
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">User Mobile</label>
+					<input type="text" class="form-control" placeholder="User Mobile" autofocus="" name="user_mobile" id="user_mobile" value="{{userdetails.user_mobile}}">
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">User Date of Birth</label>
+					<input type="text" class="form-control" placeholder="User Date of Birth" autofocus="" id="user_dob" name="user_dob" value="{{userdetails.user_dob}}">
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">User Address Line 1</label>
+					<input type="text" class="form-control" placeholder="User Address Line 1" autofocus="" name="user_add1" id="user_date" value="{{userdetails.user_add1}}">
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">User Address Line 2</label>
+					<input type="text" class="form-control" placeholder="User Address Line 2" autofocus="" name="user_add2" id="user_add2" value="{{userdetails.user_add2}}">
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">User City</label>
+					<select name="user_city" required class="form-control" placeholder="Select User" autofocus=""> 
+					<option value="">Please Select</option>
+					{% for city in citylist %}
+					<option value="{{ city.city_id }}" {% if city.city_id == userdetails.user_city %} selected="selected"{% endif %}>{{city.city_name}}</option>
+					{% endfor %}
+					</select>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">User State</label>
+					<select name="user_state" required class="form-control" placeholder="Select Month" autofocus=""> 
+					<option value="">Please Select</option>
+					{% for state in statelist %}
+					<option value="{{ state.state_id }}" {% if state.state_id == userdetails.user_state %} selected="selected"{% endif %}>{{state.state_name}}</option>
+					{% endfor %}
+					</select>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">User Country</label>
+					<select name="user_country" required class="form-control" placeholder="Select Month" autofocus=""> 
+					<option value="">Please Select</option>
+					{% for country in countrylist %}
+					<option value="{{ country.country_id }}" {% if country.country_id == userdetails.user_country %} selected="selected"{% endif %}>{{country.country_name}}</option>
+					{% endfor %}
+					</select>
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">User Picture</label>
+					<input type="file" accept="image/*" class="form-control" placeholder="User Mobile" autofocus="" name="user_image" id="user_image"
+					 value="{{userdetails.user_image}}">
+					{% if userdetails.user_image %}
+					<div class="clearfix" style="margin-top:20px;"><img src="{{userdetails.user_image}}" style="width: 100px"></div><br>
+					{% endif %}
+				</div>
+				<button class="btn btn-lg btn-login btn-block" type="submit">Submit</button>
+			</div>
+			<input type="hidden" name="act" value="save_user">
+			<input type="hidden" name="avail_image" value="{{userdetails.user_image}}">
+			<input type="hidden" name="user_id" value="{{userdetails.user_id}}">
+		</form>
+	</div>
+</div>
+{% if userdetails %}
+<script>
+	$(".update-user").hide();
+</script>
+{% endif %}
+{% if request.session.user_level_id != 1 %}
+<script>
+	$(".role-options").hide();
+</script>
+{% endif %}
+{% if fn != "update" %}
+<script>
+	jQuery( "#user_level_id" ).val("{{ request.GET.role_id }}");
+//	jQuery( "#user_level" ).hide();
+</script>
+{% endif %}
+
+<!--container end-->
+{% endblock content %}

@@ -1,0 +1,61 @@
+{% extends 'base.html' %} 
+{% block content %}
+<script>
+$(document).on("click", ".delete-dialog", function () {
+  var id = $(this).data('id');
+	$("#recordID").val( id );
+});
+function delete_record(product_id)
+{
+	location.href = "/products/delete/"+$("#recordID").val();
+}
+</script>
+<style>
+.listing {
+	float: left;
+	padding: 10px;
+	margin: 10px;
+	border: 1px solid;
+	text-align: center;
+	width: 150px;
+}
+</style>
+
+    <!--breadcrumbs start-->
+    <div class="breadcrumbs">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-sm-4">
+            <h1>
+              {{ heading }}
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- //breadcrumbs -->
+
+<div class="container">
+		<div class="row">
+			{% if messages %}
+				<div class="alert alert-success fade in" style="margin:10px;">
+					{% for message in messages %}
+						<strong>{{ message }}</strong>
+					{% endfor %}
+				</div>
+		  {% endif %}
+		  <div class="col-lg-12">
+					<div class="row">
+						{% for product in productlist %}
+							<div class="col listing">
+								<img src="{{product.product_image}}" style="height:200px; width:120px"><br>
+								{{product.product_name}}<br>
+								Rs. {{product.product_price}}.00/-<br>
+								<a href="/products/product-details/{{product.product_id}}" class="btn btn-primary" style="width:100%; margin-top:10px;">Product details</a>
+							</div>
+						{% endfor %}	
+					</div>
+			</div>
+		</div>
+	</div>
+{% endblock content %}

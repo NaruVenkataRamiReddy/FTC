@@ -1,0 +1,70 @@
+{% extends 'base.html' %} {% block content %}
+<!--breadcrumbs start-->
+<div class="breadcrumbs">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4 col-sm-4">
+				<h1>{{heading}}</h1>
+			</div>
+		</div>
+	</div>
+</div>
+<!--breadcrumbs end-->
+
+<!--container start-->
+<div class="registration-bg">
+	<div class="row">
+		<form enctype="multipart/form-data" method="post" class="form-signin wow fadeInUp" action="" style="max-width:60%">
+			{% csrf_token %}
+			<h2 class="form-signin-heading">
+				{% if fn == "add" %}
+					Add New Test
+				{% elif fn == "update" %}
+					Update Test
+				{% endif %}
+			</h2>
+			{% if messages %}
+				<div class="alert alert-success fade in" style="margin:10px;">
+					{% for message in messages %}
+						<strong>{{ message }}</strong>
+					{% endfor %}
+				</div>
+			{% endif %}
+			<div class="login-wrap">
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Test Name</label>
+					<input type="text" class="form-control" placeholder="Test Name" autofocus="" name="test_title" id="test_title" value="{{testdetails.test_title}}">
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Test Cost</label>
+					<input type="text" class="form-control" placeholder="Test Cost" autofocus="" name="test_cost" id="test_cost" value="{{testdetails.test_cost}}">
+				</div>
+				<div class="col-xs-6 form-group">
+					<label for="pwd">Test Duration</label>
+					<input type="text" class="form-control" placeholder="Test Duration" autofocus="" name="test_duration" id="test_duration" value="{{testdetails.test_duration}}">
+				</div>
+				<div class="clear"></div>
+				<div class="col-xs-6 form-group" style="clear:both">
+					<label for="pwd">Description</label>
+					<textarea class="form-control" style="height:150px;" placeholder="Description" autofocus="" name="test_description" id="test_description">{{testdetails.test_description}}</textarea>
+				</div>
+				<button class="btn btn-lg btn-login btn-block" type="submit">Submit</button>
+			</div>
+			<input type="hidden" name="act" value="save_test">
+			<input type="hidden" name="avail_image" value="{{testdetails.test_image}}">
+			<input type="hidden" name="company_id" value="{{testdetails.company_id}}">
+		</form>
+	</div>
+</div>
+{% if testdetails %}
+<script>
+	$(".update-test").hide();
+</script>
+{% endif %}
+{% if request.session.test_level_id != 1 %}
+<script>
+	$(".role-options").hide();
+</script>
+{% endif %}
+<!--container end-->
+{% endblock content %}

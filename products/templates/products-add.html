@@ -1,0 +1,100 @@
+{% extends 'base.html' %} {% block content %}
+    <!--breadcrumbs start-->
+    <div class="breadcrumbs">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-sm-4">
+            <h1>
+              {{ heading }}
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- //breadcrumbs -->
+
+<div class="typo">
+<div class="container">
+<div class="typo-grids"><center>
+  <form enctype="multipart/form-data" method="post">
+		{% csrf_token %}
+			</br>
+		{% if messages %}
+					<div class="alert alert-success fade in" style="margin:10px;">
+						{% for message in messages %}
+							<strong>{{ message }}</strong>
+						{% endfor %}
+					</div>
+		{% endif %}
+	<div class="col-sm-1">&nbsp;</div>
+	<div class="col-sm-9">
+	<div class="form-group row">
+      <label class="col-sm-4 col-form-label">Product Name</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" name="product_name" id="product_name" value="{{productdetails.product_name}}" placeholder="Product Name" required>
+      </div>
+    </div>
+	<div class="form-group row">
+      <label class="col-sm-4 col-form-label">Product Type</label>
+      <div class="col-sm-8">
+        <select name="product_type_id" required class="form-control" placeholder="Product Type" autofocus=""  required/>
+		
+			{{protypelist |safe }}
+		
+		</select>
+      </div>
+    </div>
+	<div class="form-group row">
+      <label class="col-sm-4 col-form-label">Farmer Name</label>
+      <div class="col-sm-8">
+        <select name="product_company_id" required class="form-control" placeholder="Company Name" autofocus=""  required/>
+		
+			{{procompanylist |safe }}	
+			
+		</select>
+      </div>
+    </div>
+	<div class="form-group row">
+      <label class="col-sm-4 col-form-label">Product Price</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" name="product_price" id="product_price" value="{{productdetails.product_price}}" placeholder="Product Price" required>
+      </div>
+    </div>
+	<div class="form-group row">
+      <label class="col-sm-4 col-form-label">Product Image</label>
+      <div class="col-sm-8">
+        <input type="file" class="form-control" name="product_image" id="product_image" placeholder="Product Image" value="{{productdetails.user_image}}">
+			{% if productdetails.product_image %}
+			<div class="clearfix" style="margin-top:20px;"><img src="{{productdetails.product_image}}" style="width: 100px"></div><br>
+			{% endif %}
+      </div>
+    </div>
+	<div class="form-group row">
+      <label class="col-sm-4 col-form-label">Description</label>
+      <div class="col-sm-8">
+        <textarea class="form-control" name="product_description" id="product_description" placeholder="Product Description">{{productdetails.product_description}}</textarea>
+      </div>
+    </div>
+	<div class="form-group row">
+      <label class="col-sm-4 col-form-label">Product Stock</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" name="product_stock" id="product_stock" value="{{productdetails.product_stock}}" placeholder="Product Stock" required>
+      </div>
+    </div>
+	
+    <div class="form-group row">
+      <div class="offset-sm-2 col-sm-10">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+			<input type="hidden" name="act" value="save_product">
+			<input type="hidden" name="avail_image" value="{{productdetails.product_image}}">
+			<input type="hidden" name="product_id" value="{{productdetails.product_id}}">
+	</div>
+<div class="col-sm-2">&nbsp;</div>	
+  </form></center>
+	</div>
+</div>
+</div>
+<!--container end-->
+{% endblock content %}

@@ -1,0 +1,101 @@
+{% extends 'base.html' %} {% block content %}
+
+<style>
+.dashboard .btn-circle {
+  width: 156px;
+  height: 156px;
+  text-align: center;
+  padding: 6px 0;
+  line-height: 1.42;
+  border-radius: 90px;
+  color: #fff;
+  background: #135c18;
+  background-color: #135c18;
+  font-size: 18px;
+  font-weight: 700;
+}
+.btn-circle div{
+  margin-top: 40px;
+}
+.mydash {
+	border:1px solid #135c18;
+	padding:10px;
+	margin:10px;
+}
+.col-lg-2 {
+	width:14.667%;
+}
+</style> 
+
+
+    <!--breadcrumbs start-->
+    <div class="breadcrumbs">
+	<div class="container">
+		<div class="row">
+		<div class="col-lg-4 col-sm-4">
+			<h1>
+			DASHBOARD
+			</h1>
+		</div>
+		</div>
+	</div>
+	</div>
+
+	<!--breadcrumbs end-->
+	<div class="container w">
+		{% if request.session.user_level_id == 1 %}	
+			<div class="row dashboard">
+				<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+					<a href="/products/product-listing" class="btn btn-default btn-circle"><div>Product<br>Report</div></a>	
+				</div><!--/.col-->	
+				<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+					<a href="/type" class="btn btn-default btn-circle"><div>Product Type<br>Report</div></a>	
+				</div><!--/.col-->	
+				<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+					<a href="/company" class="btn btn-default btn-circle"><div>Farmer<br>Report</div></a>	
+				</div><!--/.col-->	
+				<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+					<a href="/users/report/2" class="btn btn-default btn-circle"><div>Customer<br>Report</div></a>	
+				</div><!--/.col-->
+				<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+					<a href="/products/order-listing" class="btn btn-default btn-circle"><div>Order<br>Report</div></a>	
+				</div><!--/.col-->				
+				<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+					<a href="/products/add" class="btn btn-default btn-circle"><div>Add<br>Product</div></a>	
+				</div><!--/.col-->
+				<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+					<a href="/company/add" class="btn btn-default btn-circle"><div>Add<br>Farmer</div></a>	
+				</div><!--/.col-->
+				<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+					<a href="/type/add" class="btn btn-default btn-circle"><div>Add<br>Product Type</div></a>	
+				</div><!--/.col-->				
+				<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+					<a href="/users/update/{{ request.session.user_id }}/" class="btn btn-default btn-circle"><div>My<br>Account</div></a>	
+				</div><!--/.col-->
+				<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+					<a href="/users/changepassword" class="btn btn-default btn-circle"><div>Change<br>Password</div></a>	
+				</div><!--/.col-->
+				<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+					<a href="/users/logout" class="btn btn-default btn-circle"><div style="margin-top:55px">Logout</div></a>	
+				</div><!--/.col-->				
+			</div><!-- row -->				  
+		{% endif %}
+		{% if request.session.user_level_id == 2 %}	
+		<div class="row dashboard">
+			<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+				<a href="/products/order-listing" class="btn btn-default btn-circle"><div>My<br>Orders</div></a>	
+			</div><!--/.col-->							
+			<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+				<a href="/users/update/{{ request.session.user_id }}/" class="btn btn-default btn-circle"><div>My<br>Account</div></a>	
+			</div><!--/.col-->
+			<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+				<a href="/users/changepassword" class="btn btn-default btn-circle"><div>Change<br>Password</div></a>	
+			</div><!--/.col-->
+			<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 mydash">
+				<a href="/users/logout" class="btn btn-default btn-circle"><div style="margin-top:55px">Logout</div></a>	
+			</div><!--/.col-->				
+		</div><!-- row -->				  
+	{% endif %}
+	</div>
+	<!-- container -->
+{% endblock content %}
